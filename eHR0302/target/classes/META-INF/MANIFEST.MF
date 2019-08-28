@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Built-By: sist
+Class-Path: lib/spring-context-support-4.3.10.RELEASE.jar lib/spring-b
+ eans-4.3.10.RELEASE.jar lib/spring-core-4.3.10.RELEASE.jar lib/common
+ s-logging-1.2.jar lib/mail-1.4.7.jar lib/activation-1.1.1.jar lib/asp
+ ectjweaver-1.8.9.jar lib/aspectjrt-1.8.9.jar lib/aopalliance-1.0.jar 
+ lib/aspectjtools-1.8.9.jar lib/spring-aop-4.3.10.RELEASE.jar lib/spri
+ ng-jdbc-4.3.10.RELEASE.jar lib/spring-tx-4.3.10.RELEASE.jar lib/sprin
+ g-context-4.3.10.RELEASE.jar lib/spring-expression-4.3.10.RELEASE.jar
+  lib/ojdbc6-11.2.0.3.jar lib/log4j-1.2.17.jar
+Build-Jdk: 1.8.0_201
+Created-By: Maven Integration for Eclipse
+Main-Class: com.ehr.AppMain
+

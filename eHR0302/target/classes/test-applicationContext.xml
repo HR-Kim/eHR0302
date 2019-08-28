@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="mailSender" class="com.ehr.service.DummyMailSender"> </bean>
+<!-- 	<bean id="mailSender"
+		class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="session" ref="emailSession"></property>
+	</bean> -->
+	<!-- Naver smtp이용 Mail Send -->
+	<bean id="passwordAuth" class="javax.mail.PasswordAuthentication">
+		<constructor-arg>
+			<value>jamesol</value>
+		</constructor-arg>
+		<constructor-arg>
+			<value>사용자비번</value>
+		</constructor-arg>
+	</bean>
+
+	<bean id="authenticator" class="javax.mail.Authenticator">
+		<lookup-method name="getPasswordAuthentication"
+			bean="passwordAuth" />
+	</bean>
+
+	<bean id="emailSession" class="javax.mail.Session">
+		<constructor-arg>
+			<props>
+				<prop key="mail.smtp.host">smtp.naver.com</prop>
+				<prop key="mail.smtp.port">465</prop>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.ssl.enable">true</prop>
+				<prop key="mail.smtp.ssl.trust">smtp.naver.com</prop>
+			</props>
+		</constructor-arg>
+		<constructor-arg ref="authenticator" />
+	</bean>
+
+
+
+
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<bean id="userServiceTx" class="com.ehr.service.UserServiceTx">
+		<property name="transactionManager" ref="transactionManager"/>
+		<property name="userService" ref="userServiceImpl" />
+	</bean>
+
+	<bean id="userServiceImpl" class="com.ehr.service.UserServiceImpl">
+		<property name="userDao" ref="userDao" />
+		<property name="mailSender" ref="mailSender" />
+	</bean>
+
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+		<property name="driverClass"
+			value="oracle.jdbc.driver.OracleDriver" />
+		<property name="url"
+			value="jdbc:oracle:thin:@211.238.142.124:1521:orcl" />
+		<property name="username" value="HRSPRING" />
+		<property name="password" value="HRSPRING1026" />
+	</bean>
+
+
+	<bean id="userDao" class="com.ehr.UserDaoJdbc">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+</beans>
